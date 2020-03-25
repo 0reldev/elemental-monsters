@@ -1,4 +1,6 @@
 import java.util.Random;
+// import java.util.Scanner;
+
 
 class Monster {
 
@@ -10,16 +12,18 @@ class Monster {
     private int strength;   // de 0 à 9
     private int intelligence;   // de 0 à 9
     private double life;   // 40 ou de 10 à 30
+    private double initialLife;
     private String element; // "fire", "water", "air"
 
 
     // constructors
-    public Monster(String name, String element){
+    public Monster(String name, double life){
         this.name = name;
         this.strength = r.nextInt(9);
         this.intelligence = r.nextInt(9);
-        this.life = 40.0;
-        this.element = element;
+        this.life = life;
+        this.initialLife = this.getLife();
+        this.element = elements[r.nextInt(3)];
     }
 
     public Monster(String name){
@@ -27,9 +31,9 @@ class Monster {
         this.strength = r.nextInt(9);
         this.intelligence = r.nextInt(9);
         this.life = (double) r.nextInt(21) + 10 ; // r.nextInt(max - min + 1) + min
+        this.initialLife = this.getLife();
         this.element = elements[r.nextInt(3)];
     }
-  
 
 
     // setters
@@ -43,6 +47,10 @@ class Monster {
 
     public void setLife(double life) {
         this.life = life;
+    }
+
+    public void setInitialLife(double life) {
+        this.initialLife = life;
     }
 
     public void setIntelligence(int intelligence) {
@@ -66,6 +74,11 @@ class Monster {
         return this.life;
     }
 
+    public double getInitialLife() {
+        return this.initialLife;
+    }
+
+
     public int getIntelligence() {
         return this.intelligence;
     }
@@ -76,11 +89,8 @@ class Monster {
     
 
     // instance method
-
-    public String attack(Monster ennemyMonster) {
-        
-        int attack = getStrength() + 1;
-             
+    public void attack(Monster ennemyMonster) {      
+        int attack = getStrength() + 1;           
         double efficiency = 1.0;
         if (this.element == "fire" && ennemyMonster.element == "air" 
             || this.element == "water" && ennemyMonster.element == "fire"
@@ -91,15 +101,29 @@ class Monster {
         || this.element == "water" && ennemyMonster.element == "air") {
                 efficiency = 0.5 ;
         }
-
         ennemyMonster.setLife( ennemyMonster.getLife() - attack * efficiency );
 
         if (ennemyMonster.getLife() > 0) {
-            return this.getName() + " attacks " + ennemyMonster.getName() + ".\n" + ennemyMonster.getName() + " has " + ennemyMonster.getLife() + " points remaining.\n";
+            System.out.println(this.getName() + " attacks " + ennemyMonster.getName() + ".\n" + ennemyMonster.getName() + " has " + ennemyMonster.getLife() + " points remaining.\n");
         } else {
-            return this.getName() + " attacks " + ennemyMonster.getName() + ".\n" + ennemyMonster.getName() +" is KO!\n" ;          
+            System.out.println(this.getName() + " attacks " + ennemyMonster.getName() + ".\n" + ennemyMonster.getName() +" is KO!\n") ;          
         }                                
     }
+
+    public void heal() {        
+        int heal = getIntelligence() + 1;
+        if (this.getLife() < this.getInitialLife()) {
+            this.setLife(this.getLife() + heal) ;
+            if (this.getLife() > this.getInitialLife()){
+                this.setLife(this.getInitialLife());
+            }
+            System.out.println(this.getName() + " heals. It now has " + this.getLife() + " of life.\n");
+        } else {
+            System.out.println(this.getName() + "'s life is at maximum already, so " + this.getName() + " can't heal.\n" );
+        }
+    }
+
+
 
 
     // display the stats of a monster

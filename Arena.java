@@ -1,44 +1,99 @@
+import java.util.Scanner;
+
 class Arena {
+
+    public static Scanner input = new Scanner(System.in);
+
+    public static void counterAttack(Monster ennemy, Monster champion) {
+        if (ennemy.getLife() > 0 ) {
+            ennemy.attack(champion);                                                                                                                                                                                                                                                                                                                                                                                          
+        }
+    }
+
+    public static void fight(Monster champion, Monster ennemy) {        
+            
+            String answer = "";
+            boolean stop = false;
+
+            while (answer != "a" || answer != "h") {
+                if (champion.getLife() > 0 && ennemy.getLife() > 0){
+                    System.out.println("What is your next action? Type 'a' for attacking, 'h' for healing.");
+                    answer = input.nextLine();
+                    if (answer.equals("a")) { 
+                        champion.attack(ennemy);
+                        answer = "";
+                        counterAttack(ennemy, champion);
+
+                    } else if (answer.equals("h")){
+                        champion.heal();
+                        answer = "";
+                        counterAttack(ennemy, champion);
+                    } else {
+                        System.out.println( "Invalid answer!");
+                    }
+                }
+            
+                else {
+                    if (champion.getLife()<= 0 && !stop) {
+                        System.out.println("GAME OVER!");
+                        stop = true;
+                        break;
+                                                
+                    } else {
+                        System.out.println(champion.getName() + " wins! ");
+                        break;
+                    }                          
+                }
+            }                   
+    }
 
 
     public static void main (String[] args) {
 
         // creation of new instances
-        Monster champion = new Monster("Champion", "fire");
+        Monster champion = new Monster("Champion", 40.0); // rendre aléatoire le choix du type
         Monster ennemy1 = new Monster("Ennemy 1"); 
         Monster ennemy2 = new Monster("Ennemy 2");
         Monster ennemy3 = new Monster("Ennemy 3");
+        int nbVictories = 0;
 
 
-
+        
+        System.out.println("\nROUND 1\n");
         champion.status();
         ennemy1.status();
-        ennemy2.status();
-        ennemy3.status();
-
-        while (champion.getLife() > 0 && ennemy1.getLife() > 0 ) {
-        // champion attacks ennemy
-            String affichage = champion.attack(ennemy1);
-            System.out.println(affichage);
-
-        // ennemy couter-attacks champion
-            if (ennemy1.getLife() > 0 ) {
-                String affichage2 = ennemy1.attack(champion);                                                                                                                                                                                                                                                                                                                                                                                          
-                System.out.println(affichage2);
+        while (ennemy1.getLife() > 0 && champion.getLife() > 0) {
+            fight(champion, ennemy1);
+    
+        }
+        if (champion.getLife() > 0) {
+            nbVictories++;
+            System.out.println("\nROUND 2\n");
+            champion.status();
+            ennemy2.status();
+            while (ennemy2.getLife() > 0 && champion.getLife() > 0) {
+                fight(champion, ennemy2);
+            }
+        } 
+    
+        if (champion.getLife() > 0) {
+            nbVictories++;
+            System.out.println("\nROUND 3\n");
+            champion.status();
+            ennemy3.status();
+            while (ennemy3.getLife() > 0 && champion.getLife() > 0) {
+                fight(champion, ennemy3);
             }
         }
-        // while (roudou.getLife() > 0 && mewtwo.getLife() > 0 ) {
-        
-        //     // mewtwo attacks roudou
-        //     String affichage = mewtwo.attack(roudou);
-        //     System.out.println(affichage);
 
-        //     // roudou attacks mewtwo
-        //     String affichage2 = roudou.attack(mewtwo);                                                                                                                                                                                                                                                                                                                                                                                          
-        //     System.out.println(affichage2);
-            
-        // }
+        if (champion.getLife() > 0) {
+            nbVictories++;
+        }
         
+        System.out.println("Victorious rounds: " + nbVictories);
+
+
+
     }
 
 }
