@@ -118,6 +118,7 @@ class Monster {
                 this.setLife(this.getInitialLife());
             }
             System.out.println(this.getName() + " heals. It now has " + this.getLife() + " of life.\n");
+            // System.out.printf("%s heals. It now has %.1f of life.\n\n", this.getName(), this.getLife());
         } else {
             System.out.println(this.getName() + "'s life is at maximum already, so " + this.getName() + " can't heal.\n" );
         }
