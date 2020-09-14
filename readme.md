@@ -1,70 +1,69 @@
 # Elemental Monsters
 
-Le monde est peuplé de Monstres Élémentaires, invisibles pour le commun des mortels. Cependant, ayant appris les bases de Java, tu fais désormais parti de l'élite : il t'est donc possible de voir ces créatures !
+## Introduction
 
-Les Monstres Élémentaires n'ont qu'un seul but dans la vie : combattre ! Mais ils sont très mauvais pour choisir leurs attaques en fonction de leurs adversaires : tu décides donc de devenir coach de Monstre Élémentaire.
+This is a simple educational Java OOP exercise to handle classes and methods. The goal is to create a small game inspired by Pokémon to make fight elemental monsters.
 
-Ton rôle consiste à choisir un Monstre Élémentaire - ton champion ! - et en fonction de l'adversaire qu'il combattra, de lui donner des consignes parmis les suivantes :
+## Instructions
 
-* attaquer
-* se soigner
+### Goal 
 
-Ton but est de réussir, sur 3 combats aléatoires successifs, d'en gagner un maximum !
+At the beginning, we get an elemental monster which will fight against ennemies - other elemental monsters.
 
-## Qu'est-ce qu'un Monstre Élémentaire
+Turn by turn, monsters have one action possible. We can choose whether our champion monster attacks or heals itself.
 
-Un Monstre Élémentaire possède les attributs suivants :
+The battles have three rounds, the goal is to win the three rounds!
 
-* force (de 0 à 9)
-* intelligence (de 0 à 9)
-* point de vie (commence toujours à 40)
-* un élément (qui est soit feu, eau ou air)
+### Elemental monster's definition
 
-Les comportements sont les suivants :
+An Elemental Monster has four attributes : 
+- strenght (integer from 0 to 9)
+- intelligence (integer from 0 to 9)
+- HP (hit points) (double, 40.0)
+- an element (fire, water or air)
 
-* Lorsqu'il attaque, il inflige un nombre de dégât lié à sa force + 1.
-* Lorsqu'il se soigne, il gagne un nombre de point de vie lié à son intelligence + 1.
-* Ton Monstre Élémentaire attaque toujours en premier !
+A monster behaves like this:
+- when it attacks, the damages are worth its strenght + 1
+- when it heals itself, it earns some HP which are worth its intelligence + 1
+- our champion still attacks first
 
-## Le pouvoir des éléments
+### Elements
 
-Les éléments ont un effet entre eux :
+Elements have the following effects:
+- fire is efficient against air
+- air is efficient against water
+- water is efficient against fire
 
-* le feu est efficace contre l'air
-* l'air est efficace contre l'eau
-* l'eau est efficace contre le feu
+When an elemental monster attacks another one which has a weakest elements, the damages are double. 
+- fire attacking air: damages x 2
 
-Lorsqu'un Monstre Élémentaire attaque contre un élément dont il est efficace, il fait inflige deux fois plus de dégâts.
+If on the contrary a monster is attacked by another one having a weakest element, the damages are divided by 2.
+- Air attacking fire: damages / 2
 
-* Feu attaque air : dégâts x 2
+### Game controller
 
-Lorsqu'un Monstre Élémentaire est attaqué par un élément dont il est efficace, il reçoit deux fois moins de dégâts.
+The main class is in charge of the game management and interactions with the player.
 
-* Air attaque feu : dégâts / 2
+When the game starts, the initial values for intelligence and strenght are randomly generated, but the initial life still are 40.0 HP for our champion. The element is also randomly generated and stays the same for all the rounds.
 
-## Le contrôleur du jeu
+Once that our champion is created, three random ennemies will fight. Each ennemy has random attribute values and element. Besides, its life is randomly generated between 10.0 HP and 30.0 HP.
 
-La classe principale est en charge de la gestion du jeu et des interactions avec l'utilisateur.
+Our champion still plays first when a round starts.
 
-Au lancement du jeu, le programme sélectionne aléatoirement les valeurs des attributs de force et d'intelligence, entre 0 et 9. Son nombre de point de vie sera toujours égal à 40.
+Ennemies still attack, and never heal itselves. 
 
-Ensuite le programme sélectionne alétoirement l'élément de son champion parmi le feu, l'eau et l'air.
+Turn by turn, our champon and the ennemy have one action, till one of the monster die.
 
-## Déroulé d'une partie
+If an ennemy's life reach 0.0, our champion wins the round.
 
-Une fois le champion créé, trois adversaires vont successivement le combattre. Chaque adversaire à ses attributs et élément attribués aléatoirement. De plus, ces points de vies sont sélectionnés aléatoirement entre 10 et 30.
+If our champion's life reach 0.0, the game is lost.
 
-* Lors d'un combat, le champion agit toujours le premier.
-* Les adversaires n'ayant pas de coach, ils ne font qu'attaquer et ne se soigne pas.
-* Le champion et l'adversaire agissent alternativement, jusqu'à ce que l'un d'eux n'ait plus de point de vie.
-* Si un adversaire n'a plus de point de vie, le champion gagne le combat et continue la partie.
-* Si le champion n'a plus de point de vie, le combat est perdu et la partie s'arrête.
-* À la fin de la partie, le nombre de combat gagné est affiché.
+In the end of the three rounds, the number of victories is displayed.
 
-## Comment s'y prendre ?
+## Execution example
 
-Réfléchissez aux différents "acteurs" du programme : il composeront les différentes classes.
+![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
 
-Un état (point de vie...) est représenté par un attribut et un comportement (attaquer...) est une méthode.
+![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
 
-Une classe principale, avec un point d'entrée, sera le chef d'orchestre du programme : c'est lui qui créera et fera appel aux différents objets et à leurs méthodes.
+![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
