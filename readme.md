@@ -64,6 +64,6 @@ In the end of the three rounds, the number of victories is displayed.
 
 ![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
 
-![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
+![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-2.png)
 
-![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-1.png)
+![screen capture](https://github.com/0reldev/elemental-monsters/blob/master/screen-capture-3.png)
